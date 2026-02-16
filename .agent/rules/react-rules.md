@@ -2,27 +2,28 @@
 trigger: always_on
 ---
 
+# Antigravity React.js Governance Rules  
 (JavaScript + React Router DOM + TanStack Query + React Hook Form + Yup)
 
 ---
 
-## 1. Stack Enforcement
+# 1. Stack Enforcement
 
 - React (Functional Components Only)
 - JavaScript (ES2022+)
 - React Router DOM (v6+)
-- TanStack React Query (Server State Management)
-- React Hook Form (Primary Form Library)
-- Formik (Allowed only for complex legacy forms)
-- Yup (Schema Validation)
-- Tailwind CSS (Styling)
-- Framer Motion (All transitions & micro-interactions)
+- TanStack React Query (Server State)
+- React Hook Form (Primary)
+- Formik (Legacy / Complex Only)
+- Yup (Validation)
+- Tailwind CSS (Styling System)
+- Framer Motion (Mandatory for transitions)
 
 Class components are strictly prohibited.
 
 ---
 
-## 2. Architecture & Folder Structure
+# 2. Architecture & Folder Structure
 
 Feature-based architecture is mandatory.
 
@@ -41,158 +42,251 @@ hooks/
 utils/
 lib/
 styles/
+theme/
 
 yaml
 Copy code
 
 Rules:
-- One component per file.
-- UI logic in components only.
-- Business logic in hooks.
-- API calls in services.
-- Validation schemas in `/validation`.
-- Shared reusable code in `/shared`.
+- UI → components
+- Logic → hooks
+- API → services
+- Validation → validation
+- Shared reusable code → shared
+- Theme tokens → theme
 
 ---
 
-## 3. Component Design Rules
+# 3. Component Design Rules
 
 - Single Responsibility Principle enforced.
-- Components should not exceed 200 lines (soft limit).
+- Max 200 lines per component (soft limit).
 - No nested ternaries.
 - Avoid deeply nested JSX.
-- Extract reusable logic immediately.
-- Prefer composition over prop drilling.
+- Extract reusable UI patterns immediately.
+- Composition over prop drilling.
+- No inline business logic inside JSX.
 
 ---
 
-## 4. API & Server State Governance (TanStack Query)
+# 4. API & Server State Governance (TanStack Query)
 
 Mandatory:
 - No `useEffect` data fetching.
-- No direct `fetch` or `axios` inside components.
-- All API logic must exist inside `/services`.
-- All server state must be managed via React Query.
+- No direct `fetch` / `axios` in components.
+- All API calls must live inside `/services`.
+- All server state handled via React Query.
 
 Query Rules:
-- Every API must have a dedicated custom hook.
-- Query keys must follow array format: `['resource', id]`
-- Use `select` for response transformation.
-- Configure `staleTime` intentionally.
-- Avoid unnecessary `refetchOnWindowFocus`.
+- Query keys must use array format: `['resource', id]`
+- Stable and consistent naming.
+- Use `select` for data transformation.
+- Set intentional `staleTime`.
+- Avoid unnecessary refetching.
 
 Mutation Rules:
-- Use `useMutation` for all write operations.
-- Invalidate related queries after mutation.
-- Use optimistic updates where required.
-- Implement rollback handling.
+- Use `useMutation` for all writes.
+- Invalidate relevant queries.
+- Implement optimistic updates when needed.
+- Rollback on failure.
 
 Every query must handle:
-- Loading state
-- Error state
+- Loading
+- Error
 - Empty state
 
 ---
 
-## 5. Routing Governance (React Router DOM)
+# 5. Routing Governance (React Router DOM)
 
 - Use nested routes for feature isolation.
-- Use layout routes for shared UI sections.
+- Use layout routes for shared sections.
 - Lazy-load route components.
-- Protected routes must use wrapper components.
-- Validate route params before usage.
+- Protected routes must use wrapper.
+- Validate route params.
 - No business logic inside route definitions.
 
 ---
 
-## 6. Form Governance
+# 6. Form Governance
 
-React Hook Form is the default standard.
+Default: React Hook Form.
 
 Rules:
 - Use `useForm` for all new forms.
-- Use `Controller` only for controlled UI components.
-- Do not manually manage form state.
+- Use `Controller` only when required.
+- No manual form state management.
 - Avoid unnecessary re-renders.
 
 Validation:
 - All forms must use Yup schemas.
-- Validation logic must not live inside components.
-- Schema files must exist inside `/validation`.
+- Validation schemas live in `/validation`.
+- No inline validation logic.
 
 Formik:
-- Allowed only for complex multi-step or legacy forms.
-- Otherwise prohibited.
+- Only allowed for complex multi-step or legacy forms.
 
 ---
 
-## 7. State Management Rules
+# 7. State Management Rules
 
-- Keep state as local as possible.
+- Keep state local whenever possible.
 - Do not duplicate derived state.
-- Never mutate state directly.
-- Use functional updates when depending on previous state.
-- Complex logic must move into custom hooks.
+- Never mutate state.
+- Use functional updates.
+- Complex state must move to custom hooks.
 
 ---
 
-## 8. Performance Standards
+# 8. Performance Standards
 
 - Prevent unnecessary re-renders.
-- Avoid inline object/array creation in JSX.
+- Avoid inline object/array creation inside JSX.
 - Memoize only when measurable benefit exists.
-- Use dynamic imports for heavy components.
-- Lists must use stable unique keys (never array index for dynamic data).
-- Avoid O(n²) rendering patterns.
+- Lazy-load heavy components.
+- Lists must use stable keys.
+- Avoid O(n²) rendering logic.
 
 ---
 
-## 9. Error Handling & Resilience
+# 9. Error Handling & Resilience
 
 - All async operations wrapped in try/catch.
-- Errors normalized at service layer.
-- Display domain-specific error messages.
-- Feature-level Error Boundaries required.
-- No console.log in production-ready code.
+- Errors normalized in service layer.
+- Use feature-level Error Boundaries.
+- No console.log in production.
 
 ---
 
-## 10. Security Standards
+# 10. Security Standards
 
 - No hardcoded secrets.
-- Validate all form inputs using Yup.
-- Sanitize user-generated content.
-- Never trust route parameters without validation.
-- Centralized handling for 401/403 responses.
-- Prevent XSS and injection vulnerabilities.
+- Validate inputs via Yup.
+- Sanitize user content.
+- Validate route params.
+- Centralized 401/403 handling.
+- Prevent XSS vulnerabilities.
 
 ---
 
-## 11. Styling & Design Standards
+# 11. Global Theme & Styling Governance
 
-Design System: Google Antigravity Premium
+## 11.1 Centralized Theme System
 
-- Glassmorphism (blur + translucency) where applicable.
-- Fluid typography using clamp().
-- Framer Motion for micro-interactions.
-- WCAG 2.1 AA accessibility compliance mandatory.
-- Minimum tap target: 44px.
-- No inline styles except for dynamic values.
+All styling must be theme-driven.
+
+Theme must define:
+- Color palette
+- Typography scale
+- Spacing scale
+- Border radius scale
+- Shadow system
+- Z-index scale
+- Animation timing scale
+
+No hardcoded:
+- Colors
+- Font sizes
+- Spacing values
+- Border radius values
+
+Use design tokens only.
+
+Example:
+- `bg-primary`
+- `text-muted`
+- `rounded-lg`
+- `shadow-glass`
 
 ---
 
-## 12. Clean Code Enforcement
+## 11.2 Avoiding Unwanted White Space
+
+### Strict Layout Rules
+
+- Use consistent spacing scale (4px / 8px grid).
+- No random margin or padding values.
+- Avoid stacking margins vertically (use gap instead).
+- Prefer `flex` or `grid` with `gap`.
+- No excessive wrapper divs.
+- Avoid double padding (parent + child).
+- Avoid unnecessary `mt-8` stacking without layout reasoning.
+
+### Container Discipline
+
+- Every page must use a layout container.
+- Maintain consistent max-width.
+- No full-width content unless intentional.
+- Use vertical rhythm consistency.
+
+### Vertical Rhythm Rule
+
+Spacing between sections must follow:
+- Section → 48px / 64px
+- Component blocks → 24px / 32px
+- Element spacing → 8px / 16px
+
+No arbitrary spacing.
+
+---
+
+## 11.3 Visual Consistency Rules
+
+- Buttons must use standardized variants.
+- Inputs must follow unified size system.
+- Cards must use consistent padding.
+- No custom shadows outside theme.
+- No inconsistent border radius usage.
+- Maintain consistent icon size scale.
+
+---
+
+## 11.4 Theme Integrity Enforcement
+
+- Dark/Light mode must use same design tokens.
+- No direct hex colors in components.
+- No inline style overrides.
+- Theme switching must not break contrast.
+- All colors must meet WCAG 2.1 AA contrast.
+
+---
+
+## 11.5 Spacing Audit Checklist
+
+Before marking UI complete:
+
+- Is spacing consistent across sections?
+- Are margins replaced by layout gap where possible?
+- Any unnecessary wrappers?
+- Any duplicate padding?
+- Does layout feel balanced visually?
+- Is there unexpected scroll gap?
+- Is there extra white space on mobile?
+
+---
+
+# 12. Micro-Interactions & Animation
+
+- Framer Motion required for transitions.
+- Use subtle motion (150–300ms).
+- No aggressive bounce animations.
+- Animation must not block interaction.
+- Respect reduced motion preference.
+
+---
+
+# 13. Clean Code Enforcement
 
 - No unused imports.
-- No commented-out dead code.
+- No dead commented code.
 - No deep relative imports.
 - DRY strictly enforced.
-- Keep functions pure when possible.
-- No TODO comments in production-ready code.
+- Keep functions pure where possible.
+- No TODO in production-ready code.
 
 ---
 
-## 13. Implementation Protocol
+# 14. Implementation Protocol
 
 Before complex implementation:
 
@@ -204,6 +298,10 @@ Query invalidation strategy
 Route protection strategy
 
 Form validation edge cases
+
+Layout spacing impact
+
+Theme consistency impact
 
 Performance implications
 
@@ -223,14 +321,20 @@ Security risks?
 
 DRY violations?
 
+Inconsistent spacing?
+
+Theme token violations?
+
+Accessibility contrast issues?
+
 yaml
 Copy code
 
 ---
 
-## 14. Production Readiness Checklist
+# 15. Production Readiness Checklist
 
-- All server state handled via React Query.
+- All server state via React Query.
 - No useEffect data fetching.
 - All forms validated using Yup.
 - Routes lazy-loaded.
@@ -238,6 +342,17 @@ Copy code
 - No console logs.
 - ESLint passes.
 - Accessibility verified.
+- Spacing audited.
+- Theme tokens enforced.
+- No arbitrary styling.
 - Performance validated.
 
 ---
+
+
+
+
+
+
+
+
