@@ -1,0 +1,84 @@
+:root {
+    /* d.light Inspired Color Palette - Light Theme Primary */
+    --primary-orange: #FF4612;
+    --primary-orange-hover: #E33E0F;
+    --primary-orange-light: rgba(255, 70, 18, 0.1);
+    --primary-orange-glow: rgba(255, 70, 18, 0.4);
+
+    /* Backgrounds */
+    --bg-primary: #FFFFFF;
+    --bg-secondary: #F9FAFB;
+    --bg-tertiary: #F3F4F6;
+
+    /* Text Colors */
+    --text-primary: #111827;
+    --text-secondary: #4B5563;
+    --text-tertiary: #9CA3AF;
+    --text-on-primary: #FFFFFF;
+
+    /* Accent & Interaction */
+    --accent-primary: var(--primary-orange);
+    --accent-secondary: #FB923C;
+    /* Complementary lighter orange */
+    --accent-gradient: linear-gradient(135deg, #FF4612 0%, #FB923C 100%);
+
+    /* Borders & Glassmorphism */
+    --border-color: #E5E7EB;
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.5);
+    --glass-blur: blur(12px);
+
+    /* Elevation */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-glow: 0 0 20px rgba(255, 70, 18, 0.2);
+
+    /* Border Radius - d.light uses generous rounding */
+    --radius-sm: 8px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --radius-full: 9999px;
+
+    /* Typography - using clamp() as per rules */
+    --font-size-xs: clamp(0.75rem, 0.70rem + 0.25vw, 0.875rem);
+    --font-size-sm: clamp(0.875rem, 0.80rem + 0.35vw, 1rem);
+    --font-size-base: clamp(1rem, 0.95rem + 0.5vw, 1.125rem);
+    --font-size-lg: clamp(1.125rem, 1.05rem + 0.75vw, 1.5rem);
+    --font-size-xl: clamp(1.5rem, 1.35rem + 1.5vw, 2.25rem);
+    --font-size-2xl: clamp(2rem, 1.75rem + 2.5vw, 3.5rem);
+
+    /* Spacing */
+    --space-xs: 0.25rem;
+    --space-sm: 0.5rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+    --space-2xl: 3rem;
+
+    /* Transitions */
+    --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Optional Dark Mode Variables - Still using d.light orange but dark surfaces */
+[data-theme='dark'] {
+    --bg-primary: #0F172A;
+    --bg-secondary: #1E293B;
+    --bg-tertiary: #334155;
+
+    --text-primary: #F8FAFC;
+    --text-secondary: #CBD5E1;
+    --text-tertiary: #94A3B8;
+
+    --border-color: rgba(255, 255, 255, 0.1);
+    --glass-bg: rgba(15, 23, 42, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+@font-face {
+    font-family: 'Outfit';
+    /* Modern, rounded, premium font similar to the d.light feel */
+    src: url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+}
