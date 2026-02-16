@@ -70,6 +70,15 @@ export const Sidebar = () => {
                         ))}
                     </div>
                 ))}
+
+                <div className="sidebar-utility-card">
+                    <div className="utility-icon">
+                        <HelpCircle size={24} />
+                    </div>
+                    <h4>Need Help?</h4>
+                    <p>Check our documentation for quick start guides.</p>
+                    <button className="utility-btn">Read Docs</button>
+                </div>
             </nav>
 
             <div className="sidebar-footer">
